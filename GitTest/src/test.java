@@ -3,7 +3,8 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("edited from mah androif");
+		System.out.println("edited from mah android");
 	}
 
 }
+ 
