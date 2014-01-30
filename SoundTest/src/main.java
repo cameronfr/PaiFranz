@@ -1,3 +1,5 @@
+//after we get a simple tone to work we should try to make shephards scale look it up it sounds cool liek something aliens would make
+//also should we use the java api or some other one like "JFugue"
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
