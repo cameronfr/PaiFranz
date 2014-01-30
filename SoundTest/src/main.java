@@ -1,9 +1,18 @@
-
+ 
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		System.out.println("Sound control panel: ");
+		
+		if (System.in.equals('a')) {
+			invokeSound()
+		}
 	}
+	
+	public static void invokeSound() {
+		System.out.println("Alieeeens");
+	}
+	
+	
 
 }
