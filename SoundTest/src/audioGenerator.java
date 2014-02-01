@@ -1,4 +1,3 @@
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,23 +7,23 @@ import javax.sound.sampled.*;
 
 public class audioGenerator {
 
-	AudioFormat audioFormat;
-	AudioInputStream audioInput;
+	AudioFormat			audioFormat;
+	AudioInputStream	audioInput;
 	// feeds data to speakers
-	SourceDataLine sourceLine;
+	SourceDataLine		sourceLine;
 	// 8000,11025,16000,22050,44100 allowed
-	float sampleRate = 16000.0F;
+	float				sampleRate			= 16000.0F;
 	// 8 ,16 allowed
-	int sampleSizeInBits = 16;
-	int channels = 2;
-	boolean signed = true;
-	boolean bigEndian = true;
+	int					sampleSizeInBits	= 16;
+	int					channels			= 2;
+	boolean				signed				= true;
+	boolean				bigEndian			= true;
 
 	// for audio gen
-	ByteBuffer byteBuffer;
-	ShortBuffer shortBuffer;
-	int byteLength;
-	byte audioData[];
+	ByteBuffer			byteBuffer;
+	ShortBuffer			shortBuffer;
+	int					byteLength;
+	byte				audioData[];
 
 	public static void main(String[] args) throws IOException {
 		// BufferedReader br = new BufferedReader(new
@@ -83,32 +82,52 @@ public class audioGenerator {
 		shortBuffer = byteBuffer.asShortBuffer();
 		byteLength = synDataBuffer.length;
 		tones();
+		//stereoPanning();
 
 	}
 
-	//this actually creates the audio data
+	// this actually creates the audio data
 	void tones() {
 
 		channels = 1;
 		int bytesPerSamp = 2;
 		sampleRate = 16000.0F;
 		int sampleLength = byteLength / bytesPerSamp;
+		double freq = 900.0;
 
 		for (int cnt = 0; cnt < sampleLength; cnt++) {
 			double time = cnt / sampleRate;
-			double freq = 900.0;
-			freq += 100;
 			
+			freq += 0.001;
+			System.out.println(cnt);
+
 			// I have no idea how this works it makes an actual sound wave
 			// !1!1111!
-			double sinValue = Math.sin(2 * Math.PI * freq * time)
-					+ Math.sin(2 * Math.PI * (freq / 1.8) * time)
-					+ Math.sin(2 * Math.PI * (freq / 1.5) * time) / 3.0;
+			double sinValue = Math.sin(2 * Math.PI * freq * time)+ Math.sin(2 * Math.PI * (freq / 1.8) * time)+ Math.sin(2 * Math.PI * (freq / 1.5) * time) / 3.0;
 			shortBuffer.put((short) (1600 * sinValue));
 		}
 
 	}
 
+	void stereoPanning() {
+		channels = 2;
+		int bytesPerSamp = 4;
+		sampleRate = 16000.0F;
+		double freq = 600;
+
+		int sampLength = byteLength / bytesPerSamp;
+		for (int cnt = 0; cnt < sampLength; cnt++) {
+			
+			double rightGain = 16000.0 * cnt / sampLength;
+			double leftGain = 16000.0 - rightGain;
+			double time = cnt / sampleRate;
+
+			double sinValue = Math.sin(2 * Math.PI * (freq) * time);
+			shortBuffer.put((short) (leftGain * sinValue));
+			sinValue = Math.sin(2 * Math.PI * (freq * 0.8) * time);
+			shortBuffer.put((short) (rightGain * sinValue));
+		}
+	}
 }
 
 // this class is all playback
@@ -117,8 +136,8 @@ class ListenThread extends Thread {
 	// the data between the AudioInputStream and
 	// the SourceDataLine. The size is rather
 	// arbitrary.
-	byte playBuffer[] = new byte[16384];
-	audioGenerator audioGen;
+	byte			playBuffer[]	= new byte[16384];
+	audioGenerator	audioGen;
 
 	public ListenThread(audioGenerator audioGenerator) {
 		audioGen = audioGenerator;
