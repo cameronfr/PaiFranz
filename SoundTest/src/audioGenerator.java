@@ -1,4 +1,4 @@
-//after we get a simple tone to work we should try to make shephards scale look it up it sounds cool liek something aliens would make
+//ALIENS WER HERE
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,6 +86,7 @@ public class audioGenerator {
 
 	}
 
+	//this actually creates the audio data
 	void tones() {
 
 		channels = 1;
