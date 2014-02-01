@@ -1,7 +1,4 @@
-//NO I ACTUALLY WROTE THAT THING
-//I'M A WEIRDO
-//OMG
-//HENTAI
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
