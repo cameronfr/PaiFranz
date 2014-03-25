@@ -17,7 +17,8 @@ public class Linguist {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		table = parser.getTable();
+		System.out.println(table);
 	}
 	
 	public static void main(String[] args) {
