@@ -37,18 +37,11 @@ public class Parser {
 			
 		}
 	}
+	public HashMap getTable(){
+		return this.table;
+	}
 	private void addEntry(String key, String value) {
-		//System.out.println("Key: " + key + " Value: " + value);
+	
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Parser fileParser = new Parser();
-		try {
-			fileParser.parseFile("/resources/testInput.txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 }
