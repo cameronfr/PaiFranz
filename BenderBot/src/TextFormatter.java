@@ -12,7 +12,6 @@ public class TextFormatter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void formatFile(String path) throws FileNotFoundException {
@@ -25,8 +24,19 @@ public class TextFormatter {
 			String line = text.nextLine();
 			if(line.contains("Bender:")) {
 				String benderLine = line.substring(line.indexOf(" ")+1);
+				benderLine = removeBrackets(benderLine);
 				System.out.println(benderLine);
 			}
 		}
+	}
+	private static String removeBrackets(String line) {
+		String fixedLine = line;
+		String bracketSubstring;
+		//if has brackets, fix
+		if(line.indexOf("[")!=-1 && line.indexOf("]")+2 != -1) {
+			bracketSubstring = line.substring(line.indexOf("["), line.indexOf("]")+2);
+			fixedLine = line.replace(bracketSubstring,"");
+		}
+		return fixedLine;
 	}
 }
