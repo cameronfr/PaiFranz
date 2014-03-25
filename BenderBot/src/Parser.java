@@ -41,7 +41,12 @@ public class Parser {
 		return this.table;
 	}
 	private void addEntry(String key, String value) {
-	
+		ArrayList<String> values = new ArrayList<String>();
+		if (table.containsKey(key)) {
+			values = table.get(key);
+		}
+		values.add(value);
+		table.put(key, values);
 	}
 	
 }
