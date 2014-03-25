@@ -11,17 +11,17 @@ public class Linguist {
 	int markovOrder;
 	
 	public Linguist() {
-		markovOrder = 3;
+		markovOrder = 2;
 		parser = new Parser(markovOrder);
 		try {
-			parser.parseFile("/resources/BenderQuotes.txt");
+			parser.parseFile("/resources/BenderSeason1.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		table = parser.getTable();
 		//System.out.println(table);
-		System.out.println(createTextFromKey("Hey! I got a busted", 100));
+		System.out.println(createTextFromKey("hide in", 1000));
 	}
 	
 	public String createTextFromKey(String startKey, int wordLengthLimit) {
