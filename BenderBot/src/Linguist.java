@@ -8,11 +8,11 @@ public class Linguist {
 
 	HashMap<String,ArrayList<String>> table;
 	Parser parser;
-	int keyLength;
+	int markovOrder;
 	
 	public Linguist() {
-		keyLength = 2;
-		parser = new Parser(keyLength);
+		markovOrder = 3;
+		parser = new Parser(markovOrder);
 		try {
 			parser.parseFile("/resources/BenderQuotes.txt");
 		} catch (FileNotFoundException e) {
@@ -21,7 +21,7 @@ public class Linguist {
 		}
 		table = parser.getTable();
 		//System.out.println(table);
-		System.out.println(createTextFromKey("metal ass!", 1000));
+		System.out.println(createTextFromKey("Hey! I got a busted", 100));
 	}
 	
 	public String createTextFromKey(String startKey, int wordLengthLimit) {
@@ -42,7 +42,7 @@ public class Linguist {
 	public String getKey(String text) {
 		String key = "";
 		String words[] = text.split(" ");
-		for(int i = words.length-keyLength; i<words.length;i++){
+		for(int i = words.length-markovOrder; i<words.length;i++){
 			key = key.concat(words[i]).concat(" ");
 		}
 		return key.trim();
