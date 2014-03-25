@@ -7,7 +7,7 @@ public class TextFormatter {
 
 	public static void main(String[] args) {
 		try {
-			formatFile("/resources/BenderQuotes.txt");
+			formatFile("/resources/BenderSeason1.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
