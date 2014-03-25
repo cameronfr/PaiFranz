@@ -19,7 +19,7 @@ public class Parser {
 		simpleReadFile(words);
 	}
 	
-	//reads from a file formatted with one line as one sentences
+	//reads from a file formatted with each line as one sentence
 	private void simpleReadFile(Scanner text) {
 		while(text.hasNextLine()) {
 			Scanner line = new Scanner(text.nextLine());
@@ -38,7 +38,7 @@ public class Parser {
 		}
 	}
 	private void addEntry(String key, String value) {
-		System.out.println("Key: " + key + " Value: " + value);
+		//System.out.println("Key: " + key + " Value: " + value);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
