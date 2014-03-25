@@ -14,14 +14,14 @@ public class Linguist {
 		markovOrder = 2;
 		parser = new Parser(markovOrder);
 		try {
-			parser.parseFile("/resources/BenderSeason1.txt");
+			parser.parseFile("/resources/CameronMessages.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		table = parser.getTable();
 		//System.out.println(table);
-		System.out.println(createTextFromKey("hide in", 1000));
+		System.out.println(createTextFromKey(randomKey(), 1000));
 	}
 	
 	public String createTextFromKey(String startKey, int wordLengthLimit) {
@@ -39,13 +39,17 @@ public class Linguist {
 	}
 	
 	//returns key at very end of string
-	public String getKey(String text) {
+	private String getKey(String text) {
 		String key = "";
 		String words[] = text.split(" ");
 		for(int i = words.length-markovOrder; i<words.length;i++){
 			key = key.concat(words[i]).concat(" ");
 		}
 		return key.trim();
+	}
+	public String randomKey() {
+		int rand = (int)(Math.random() * table.keySet().size());
+		return (String) table.keySet().toArray()[rand];
 	}
 	
 	public static void main(String[] args) {
