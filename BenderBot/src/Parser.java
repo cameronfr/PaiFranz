@@ -8,34 +8,34 @@ import java.util.Scanner;
 public class Parser {
 
 	HashMap<String,ArrayList<String>> table;
-
-	public Parser() {
+	int keyLength;
+	
+	public Parser(int keyLengthIn) {
+		keyLength = keyLengthIn;
 		table = new HashMap<String,ArrayList<String>>();
 	}
 
 	public void parseFile(String path) throws FileNotFoundException {
 		String currentDirectory = new File("").getAbsolutePath();
-		Scanner words = new Scanner(new File(currentDirectory+ path));
-		simpleReadFile(words);
+		Scanner text = new Scanner(new File(currentDirectory+ path));
+		simpleReadText(text);
 	}
 	
-	//reads from a file formatted with each line as one sentence
-	private void simpleReadFile(Scanner text) {
-		while(text.hasNextLine()) {
-			Scanner line = new Scanner(text.nextLine());
+	//reads from a file with formatted sentences, 2 values 
+	private void simpleReadText(Scanner text) {
 			String word1,word2,word3;
-			word1 = line.next();
-			word2 = line.next();
-			while(line.hasNext()) {
-				word3 = line.next();
+			word1 = text.next();
+			word2 = text.next();
+			while(text.hasNext()) {
+				word3 = text.next();
 				String key = word1.concat(" ").concat(word2);
 				String value = word3;
-				addEntry(key, value);
+				addEntry(key.trim(), value.trim());
 				word1 = word2;
 				word2 = word3;
 			}
 			
-		}
+		
 	}
 	public HashMap getTable(){
 		return this.table;
