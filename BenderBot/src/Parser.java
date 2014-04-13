@@ -5,16 +5,16 @@ import java.util.Scanner;
 public class Parser {
 
 	private MarkovChain chain;
-	private int markovOrder;
+	private int keyLength;
 
 	public Parser(final MarkovChain chainIn) {
 		chain = chainIn;
-		markovOrder = chain.getKeyLength();
+		keyLength = chain.getKeyLength();
 	}
 
 	public final void parseFile(final String path) {
 		try {
-			simpleReadTextByWord(readFile(path));
+			simpleReadTextByLine(readFile(path));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,8 +29,8 @@ public class Parser {
 
 	// reads from a file with formatted sentences, 2 values
 	private void simpleReadTextByWord(final Scanner text) {
-		int wordBufferLength = markovOrder + 1;
-		String[] wordBuffer = new String[markovOrder + 1];
+		int wordBufferLength = keyLength + 1;
+		String[] wordBuffer = new String[keyLength + 1];
 		for (int i = 0; i < wordBufferLength; i++) {
 			if (text.hasNext()) {
 					wordBuffer[i] = text.next();
@@ -47,7 +47,37 @@ public class Parser {
 			for (int i = 0; i < wordBufferLength - 1; i++) {
 				wordBuffer[i] = wordBuffer[i + 1];
 			}
-			wordBuffer[markovOrder] = text.next();
+			wordBuffer[keyLength] = text.next();
+		}
+	}
+
+	private void simpleReadTextByLine(final Scanner text) {
+		int wordBufferLength = keyLength + 1;
+		String[] wordBuffer = new String[keyLength + 1];
+		for (int i = 0; i < wordBufferLength; i++) {
+			if (text.hasNext()) {
+					wordBuffer[i] = text.next();
+				}
+		}
+		while (text.hasNextLine()) {
+			String tmpLine = text.nextLine();
+			tmpLine = tmpLine.concat("/n");
+			Scanner line = new Scanner(tmpLine);
+			while (line.hasNext()) {
+				String key = "";
+				String value = wordBuffer[wordBufferLength - 1];
+				
+				// last word in buffer is value, not part of key
+				for (int i = 0; i < keyLength; i++) {
+					key = key.concat(" ").concat(wordBuffer[i]);
+				}
+				chain.addEntry(key.trim(), value.trim());
+				for (int i = 0; i < wordBufferLength - 1; i++) {
+					wordBuffer[i] = wordBuffer[i + 1];
+					
+				}
+				wordBuffer[keyLength] = line.next();
+			}
 		}
 	}
 
