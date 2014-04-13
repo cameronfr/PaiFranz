@@ -4,34 +4,33 @@ import java.util.HashMap;
 
 public class MarkovChain {
 
-	HashMap<String, ArrayList<String>> table;
-	int keyLength;
-	
-	public MarkovChain(int keyLengthIn) {
+	private HashMap<String, ArrayList<String>> table;
+	private int keyLength;
+
+	public MarkovChain(final int keyLengthIn) {
 		keyLength = keyLengthIn;
 		table = new HashMap<String, ArrayList<String>>();
 	}
-	
-	public String randomKey() {
-		int rand = (int)(Math.random() * table.keySet().size());
+
+	public final String randomKey() {
+		int rand = (int) (Math.random() * table.keySet().size());
 		return (String) table.keySet().toArray()[rand];
 	}
-	
-	public String keyFromText(String text) {
+
+	public final String keyFromText(final String text) {
 		String key = "";
-		String words[] = text.split(" ");
-		for(int i = words.length-keyLength; i<words.length;i++){
+		String[] words = text.split(" ");
+		for (int i = words.length - keyLength; i < words.length; i++) {
 			key = key.concat(words[i]).concat(" ");
 		}
 		return key.trim();
 	}
-	
-	
-	public HashMap getTable() {
+
+	public final HashMap getTable() {
 		return this.table;
 	}
 
-	public void addEntry(String key, String value) {
+	public final void addEntry(final String key, final String value) {
 		ArrayList<String> values = new ArrayList<String>();
 		if (table.containsKey(key)) {
 			values = table.get(key);
@@ -39,7 +38,8 @@ public class MarkovChain {
 		values.add(value);
 		table.put(key, values);
 	}
-	public int getKeyLength() {
+	
+	public final int getKeyLength() {
 		return keyLength;
 	}
 
