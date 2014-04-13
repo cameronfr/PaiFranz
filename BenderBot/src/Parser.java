@@ -61,7 +61,7 @@ public class Parser {
 		}
 		while (text.hasNextLine()) {
 			String tmpLine = text.nextLine();
-			tmpLine = tmpLine.concat("/n");
+			tmpLine = tmpLine.concat(" /n");
 			Scanner line = new Scanner(tmpLine);
 			while (line.hasNext()) {
 				String key = "";
