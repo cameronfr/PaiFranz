@@ -30,6 +30,7 @@ class TextFormatter {
 			}
 		}
 	}
+	
 	private static void writeSkypeLines(final Scanner text) {
 		PrintWriter f0 = null;
 		try {
