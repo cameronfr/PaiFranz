@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,15 +5,15 @@ public class Linguist {
 
 	private Parser parser;
 	private MarkovChain chain;
-	private int keyLength = 3;
+	private int keyLength = 2;
 	private static final int TEXT_LENGTH = 1000;
 
 	public Linguist() {
 		chain = new MarkovChain(keyLength);
 		parser = new Parser(chain);
-		parser.parseFile("/resources/NaveenMessages.txt");
+		parser.parseFile("/resources/CameronMessages.txt");
 		//System.out.println(table);
-		System.out.println(createTextFromKey(chain.randomKey(), TEXT_LENGTH));
+		System.out.println(createTextFromKey(chain.randomKey(), TEXT_LENGTH).replaceAll("/n", "\n"));
 	}
 
 	public final String createTextFromKey(final String startKey, final int wordLengthLimit) {
